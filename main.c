@@ -2,90 +2,47 @@
 #include <stdlib.h>
 
 #define MAX_QUEUE_SIZE 5
-typedef int element;
 typedef struct {
-	element  data[MAX_QUEUE_SIZE];
-	int front, rear;
-} QueueType;
+	int data;
+	struct ListNode *link;
+}ListNode;
 
-int get_count(QueueType *q){
+int search(ListNode *list, int value){
 //fill out the code below
 	int count = 0;
 	
 	return count;
 }
-void error(char *message)
-{
-	fprintf(stderr, "%s\n", message);
-	exit(1);
-}
 
-void init_queue(QueueType *q)
-{
-	q->front = q->rear = 0;
-}
-
-int is_empty(QueueType *q)
-{
-	if(q->front == q->rear){
-		printf("The queue is empty\n");
-		return 1;
+ListNode* insert_last(ListNode* head, int data){
+	ListNode *node = (ListNode *)malloc(sizeof(ListNode));
+	node->data = data;
+	if (head == NULL) {
+		head = node;
+		node->link = head;
 	}
-	
-	return 0;
-}
-
-int is_full(QueueType *q)
-{
-	if((q->rear + 1) % MAX_QUEUE_SIZE == q->front){
-		printf("The queue is empty\n");
-		return 1;
+	else {
+		node->link = head->link;	
+		head->link = node;		
+		head = node;		
 	}
-
-	return 0;
+	return head;
 }
-
-void enqueue(QueueType *q, element item)
-{
-	if (!is_full(q)){
-		q->rear = (q->rear + 1) % MAX_QUEUE_SIZE;
-		q->data[q->rear] = item;
-	}
-}
-
-element dequeue(QueueType *q)
-{
-	if (!is_empty(q)){
-		q->front = (q->front + 1) % MAX_QUEUE_SIZE;
-		return q->data[q->front];
-	}
-	
-	return 0;
-}
-
-element peek(QueueType *q)
-{
-	if (!is_empty(q))
-		return q->data[(q->front + 1) % MAX_QUEUE_SIZE];
-
-	return 0;
-}
-
 int main(void)
 {
-	QueueType q;
+	ListNode *head = NULL;
+	int tmp1, tmp2=0;
+	printf("원형 연결리스트에 5개의 정수를 삽입하시오.\n");
+	for(int i=0; i<MAX_QUEUE_SIZE; i++){
+		scanf("%d",&tmp);
+		head = insert_last(head, tmp1);
+	}
 	
-	init_queue(&q);
+	printf("삽입한 원소중 찾고자 하는 값을 입력하시오.");
+	scanf("%d",&tmp1);
+	tmp2 = search(head, tmp1);
 	
-	for(int i=0; i < MAX_QUEUE_SIZE-1; i++)
-		enqueue(&q, i);
+	printf("%d은 %d번째 노드에 저장되어 있음\n", tmp1, tmp2);
 	
-	i = dequeue(&q);
-	i = dequeue(&q);
-	
-	enqueue(&q, i);
-
-	printf("%d\n", get_count(&q));
-
 	return 0;
 }
