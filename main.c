@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 #define MAX_QUEUE_SIZE 5
-typedef struct {
+typedef struct ListNode{
 	int data;
 	struct ListNode *link;
 }ListNode;
